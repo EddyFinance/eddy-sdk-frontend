@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 import { closeSnackbar } from "notistack";
 import { CustomTextLoader } from "@/common/CustomTextLoader";
 import useCustomModal from "@/common/useCustomModal";
-import {Eddy} from "../../../../node_modules/test-sdk-eddy";
+import { Nori } from "test-sdk-eddy";
 import { useFetchDefaultTokens } from "@/components/hooks/useFetchDefaultTokens";
 import { CustomSpinner } from "@/common/CustomSpinner";
 const DynamicTokenModal = dynamic(

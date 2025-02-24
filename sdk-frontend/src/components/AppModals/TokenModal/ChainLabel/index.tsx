@@ -19,6 +19,7 @@ export const ChainLabel = ({
 }: Props) => {
   const [showLine, setShowLine] = useState(false);
    const handleClick=()=>{
+    setShowLine(true)
       if (chainId === currentChainId) return;
       setChainId(actionType,chainId)
    }

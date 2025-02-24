@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Token } from "./Types/token";
+import { QuoteResponse, Token } from "./Types/token";
 interface TransferStore {
   payChain: number;
   getChain: number;
@@ -12,6 +12,7 @@ interface TransferStore {
   tokenOutAmount: string;
   destChainGasFees: string;
   srcChainGasFees: string;
+  quote:QuoteResponse | undefined;
   setPayChain: (chainId: number) => void;
   setGetChain: (chainId: number) => void;
   setPayToken: (token: Token) => void;
@@ -19,6 +20,7 @@ interface TransferStore {
   setPayTokenBalance: (balance: string) => void;
   setInputAmount: (value: string) => void;
   setTokenInAmount: (value: string) => void;
+  setQuoteResponse:(quote:QuoteResponse)=>void;
   setTokenOutAmount: (value: string) => void;
 }
 
@@ -27,6 +29,7 @@ const useTransferStore = create<TransferStore>((set, get) => ({
       getChain: 8453,
       payToken: undefined,
       getToken: undefined,
+      quote:undefined,
       payTokenBalance: "0.00",
       inputAmount: "0",
       tokenInAmount: "0.00",
@@ -58,6 +61,11 @@ const useTransferStore = create<TransferStore>((set, get) => ({
       setTokenOutAmount: (value: string) => {
         set((state) => ({ tokenOutAmount: value }));
       },
+      setQuoteResponse:(quote:QuoteResponse)=>{
+        set((state)=>({
+          quote:quote
+        }))
+      }
     }),
 );
 

@@ -4,7 +4,7 @@ import "./styles.scss";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grow from "@mui/material/Grow";
-import { Eddy } from "../../../../node_modules/test-sdk-eddy/dist"
+import { Nori } from "../../../../node_modules/test-sdk-eddy/dist"
 import { ModalHeading } from "@/common/ModalHeading";
 import { ChainLabel } from "./ChainLabel";
 import { CustomSpinner } from "@/common/CustomSpinner";
@@ -15,6 +15,7 @@ import { Token } from "@/store/Types/token";
 import { Chain } from "@/store/Types/chain";
 import useTransferStore from "@/store/tranfer-store";
 import { useFetchTokens } from "@/components/hooks/useFetchTokens";
+import { useShallow } from "zustand/react/shallow";
 interface Props {
   open: boolean;
   actionType: string;
@@ -30,11 +31,16 @@ export const TokenModal = ({
 }: Props) => {
   const mobileDevice = useMediaQuery("(max-width: 600px)");
   const [query, setQuery] = useState("");
-  const [payChain,setPayChain]=useState<number>(7000);
-  const [getChain,setGetChain]=useState<number>(8453);
   const [chains,setChains]=useState<Chain[]>([]);
   const [loading,setLoading]=useState<boolean>(true);
-  const sdk = new Eddy()
+  const sdk = new Nori();
+  const {
+    payChain,
+    getChain
+  }=useTransferStore(useShallow((state)=>({
+    payChain:state.payChain,
+    getChain:state.getChain
+  })))
   useEffect(()=>{
       async function fetchChains(){
           const data = await sdk.bridge.getSupportedChains()
@@ -68,6 +74,7 @@ export const TokenModal = ({
               address={item.address}
               zrc20Exist={item.zrc20Exist}
               chainId={item.chainId}
+              actionType={actionType}
             />
           ))}
         </>

@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import  useMediaQuery  from "@mui/material/useMediaQuery";
 import useTransferStore from "@/store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
+import { useFetchContractConfig } from "../hooks/useFetchContractConfig";
+import { useFetchQuoteForBridge } from "../hooks/useFetchQuoteForBridge";
 const DynamicTokenInfoContainer = dynamic(
   () => import("./TokenInfoContainer").then((mod) => mod.TokenInfoContainer),
   {
@@ -52,6 +54,15 @@ export const CrossChainWidget = () => {
   // });
   
   const {
+    config,
+    loading
+  }=useFetchContractConfig()
+
+  const {
+    quoteLoading,
+    quote
+  }=useFetchQuoteForBridge()
+  const {
     payChain,
     tokenInAmount,
     payToken,
@@ -70,6 +81,7 @@ export const CrossChainWidget = () => {
   const handleRefreshTransferState = () => {
     const event = new Event("change", { bubbles: true });
     const input = inputRef.current;
+
     if (input) {
       input.value = "0.00";
       input.dispatchEvent(event);

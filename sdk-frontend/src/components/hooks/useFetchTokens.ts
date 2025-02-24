@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Eddy} from "../../../node_modules/test-sdk-eddy";
+import {Nori} from "../../../node_modules/test-sdk-eddy"
 import useTransferStore from "@/store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
 import { Token } from "@/store/Types/token";
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const useFetchTokens = ({ actionType }: Props) => {
-  const sdk = new Eddy();
+  const sdk = new Nori();
   const [tokens, setTokens] = useState<Token[] | null>(null);
   const [tokenLoading, setTokenLoading] = useState<boolean>(true);
 
@@ -25,12 +25,13 @@ export const useFetchTokens = ({ actionType }: Props) => {
       try {
         setTokenLoading(true);
         let result;
-
         if (payChain !== getChain) {
+          console.log("fetching cross")
           result = await sdk.tokens.getSupportedCrossChainTokens({
             chainId: actionType === "From" ? payChain : getChain,
           });
         } else {
+          console.log("fetching same")
           result = await sdk.tokens.getSupportedSameChainTokens({
             chainId: actionType === "From" ? payChain : getChain,
           });

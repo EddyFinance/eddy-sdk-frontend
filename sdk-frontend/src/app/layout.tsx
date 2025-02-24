@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
-
-
+import { WagmiProvider } from "wagmi";
+import { config } from "@/config";
 const geistMono = Roboto_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -23,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} antialiased`}
       >
+        <WagmiProvider config={config}>
         {children}
+        </WagmiProvider>
       </body>
     </html>
   );

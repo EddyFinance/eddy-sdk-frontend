@@ -1,5 +1,5 @@
-import { act, useEffect, useState } from "react";
-import {Eddy} from "../../../node_modules/test-sdk-eddy"
+import {useEffect, useState } from "react";
+import {Nori} from "../../../node_modules/test-sdk-eddy"
 import useTransferStore from "@/store/tranfer-store";
 
 
@@ -10,7 +10,7 @@ interface Props {
   }
   
 export const useFetchDefaultTokens=({chainId,actionType,isSkip}:Props)=>{
-    const sdk=new Eddy();
+    const sdk=new Nori();
     const [loading,setLoading]=useState<boolean>(false);
     const fetchDefaultTokens=async(chainId:number)=>{
         setLoading(true)

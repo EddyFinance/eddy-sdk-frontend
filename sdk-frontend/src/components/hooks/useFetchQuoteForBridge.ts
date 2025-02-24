@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react"
+"use client"
+import { useEffect, useState } from "react";
 import {Nori} from "../../../node_modules/test-sdk-eddy"
 import useTransferStore from "@/store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
-import {useAccount} from "wagmi"
+import {useAccount} from "wagmi";
+import { QuoteResponse } from "@/store/Types/token";
 interface Props {
   actionType: string;
 }
 
-export const useFetchContractConfig = () => {
-   const sdk = new Nori();
-  const [config,setConfig]=useState();
-  const [loading,setLoading]=useState<boolean>(false);
+export const useFetchQuoteForBridge = () => {
+  const sdk = new Nori();
+  const [quote,setQuote]=useState<QuoteResponse>();
+  const [quoteLoading,setLoading]=useState<boolean>(false);
   const {
      payChain, 
      getChain,
@@ -26,24 +28,23 @@ export const useFetchContractConfig = () => {
       getToken:state.getToken
     }))
   );
- console.log(tokenInAmount)
+
   useEffect(() => {
-    const fetchContractConfig = async () => {
+    const fetchQuoteForBridge = async () => {
+      
       try {
         setLoading(true)
-        console.log("fetcing config early")
+        console.log("fetching response")
         if(!payToken || !getToken || !payChain || !getChain) return;
-        console.log("fetcing config")
-       const result=await sdk.bridge.getContractConfigForTx({
+       const result=await sdk.bridge.getQuoteForBridge({
         inputTokenAddress:payToken?.address as string,
         outputTokenAddress:getToken?.address as string,
         sourceChainId:payChain,
         destinationChainId:getChain,
         slippage:0.5,
         amount:(Number(tokenInAmount)*Number(payToken?.decimals)).toString(),
-        walletAddress:"0x00ce496A3aE288Fec2BA5b73039DB4f7c31a9144" as string,
        })
-       setConfig(result)
+      setQuote(result)
        setLoading(false)
        console.log(result)
       } catch (error) {
@@ -51,11 +52,11 @@ export const useFetchContractConfig = () => {
       }
     };
 
-    fetchContractConfig();
+    fetchQuoteForBridge();
   }, [payChain, getChain]); 
 
   return {
-    config,
-   loading
+    quote,
+   quoteLoading
   };
 };
