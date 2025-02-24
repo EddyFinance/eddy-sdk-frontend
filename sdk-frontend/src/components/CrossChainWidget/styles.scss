@@ -180,54 +180,14 @@
                             gap: 10px;
                         }
                     }
-
-                    .SwapLogo {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        padding: 0px;
-                        width: 32.22px;
-                        height: 32.22px;
-                        background: var(--paper-black-medium);
-                        border: 1px solid var(--border-color);
-                        border-radius: 6px;
-                        transition: all 0.2s ease-in-out;
-                        transform: scale(1);
-                        color: var(--text-dense-grey-dark);
-                        cursor: pointer;
-
-                        @include md {}
-
-                        @include lg {
-                            padding: 8px;
-                            font-size: 28px;
-                            width: 32.22px;
-                            height: 32.22px;
-                        }
-
-
-                        @include xl {
-                            padding: 10px;
-                            font-size: 30px;
-                            width: 38.22px;
-                            height: 38.22px;
-                        }
-
-                        @include xxl {
-                            padding: 12px;
-                            font-size: 30px;
-                            width: 46.22px;
-                            height: 46.22px;
-                        }
-
-                        &:hover {
-                            opacity: 0.8;
-                            transform: scale(0.95);
-                        }
-                    }
                 }
-
+                .QuoteBox{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    color: #fff;
+                    font-size: 16px;
+                }
             }
         }
     }

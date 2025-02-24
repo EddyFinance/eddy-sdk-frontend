@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Nori} from "../../../node_modules/test-sdk-eddy"
+import {Nori} from "nori-sdk"
 import useTransferStore from "@/store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
 import { Token } from "@/store/Types/token";
@@ -37,7 +37,7 @@ export const useFetchTokens = ({ actionType }: Props) => {
           });
         }
 
-        setTokens(result.tokens || []);
+        setTokens(result.tokens);
       } catch (error) {
         console.error("Error fetching tokens:", error);
         setTokens([]);

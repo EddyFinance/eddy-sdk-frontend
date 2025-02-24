@@ -4,7 +4,7 @@ import "./styles.scss";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grow from "@mui/material/Grow";
-import { Nori } from "../../../../node_modules/test-sdk-eddy/dist"
+import {Nori} from "nori-sdk"
 import { ModalHeading } from "@/common/ModalHeading";
 import { ChainLabel } from "./ChainLabel";
 import { CustomSpinner } from "@/common/CustomSpinner";
@@ -44,7 +44,7 @@ export const TokenModal = ({
   useEffect(()=>{
       async function fetchChains(){
           const data = await sdk.bridge.getSupportedChains()
-          console.log(data.supportedChains)
+
          setChains(data.supportedChains)
           setLoading(false)
       }

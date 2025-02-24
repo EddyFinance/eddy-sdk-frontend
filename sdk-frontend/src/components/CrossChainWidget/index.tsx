@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import  { useCallback, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
@@ -30,29 +30,6 @@ export const CrossChainWidget = () => {
   const [stopPropagation, setStopPropagation] = useState<boolean>(false);
   const mobileDevice = useMediaQuery("(max-width: 600px)");
   const showRewardsModal = useMediaQuery("(max-width: 800px)");
-
-
-  // const { loading, error } = useFetchQuoteForTransaction({
-  //   fromAmount: tokenInAmount,
-  //   fromChainId: payChain,
-  //   fromToken: payToken,
-  //   toChainId: getChain,
-  //   toToken: getToken,
-  //   fromTokenId: Number(payToken?.id ?? 0),
-  //   toTokenId: Number(getToken?.id ?? 0),
-  //   slippage: Number(slippageValue),
-  //   walletAddress: address,
-  //   isSkip:
-  //     !Number(tokenInAmount) ||
-  //     !payChain ||
-  //     !payToken ||
-  //     !getChain ||
-  //     !getToken ||
-  //     !Number(payToken?.id ?? 0) ||
-  //     !Number(getToken?.id ?? 0) ||
-  //     !slippageValue,
-  // });
-  
   const {
     config,
     loading
@@ -68,12 +45,14 @@ export const CrossChainWidget = () => {
     payToken,
     getChain,
     getToken,
+    tokenOutAmount
   }=useTransferStore(useShallow((state)=>({
     payChain:state.payChain,
     payToken:state.payToken,
     tokenInAmount:state.tokenInAmount,
     getChain:state.getChain,
     getToken:state.getToken,
+    tokenOutAmount:state.tokenOutAmount
   })))
   /**
    * Function to refresh widget state after success.
@@ -117,7 +96,7 @@ export const CrossChainWidget = () => {
                   isInput={false}
                   chainId={getChain}
                   tokenDetails={getToken}
-                  amount={"0.00"}
+                  amount={tokenOutAmount}
                   isSkip={stopPropagation}
                 />
               </Box>
@@ -129,6 +108,13 @@ export const CrossChainWidget = () => {
                 console.log("i got clicked")
               }}
             />
+            <div className="QuoteBox">
+             <span>Dest Chain Gas Fees: {quote?.destChainGasFees}</span>
+             <span>Estimatated Received Amount : {((Number(quote?.estimatedReceivedAmount))/(10**Number(getToken?.decimals))) || 0.00}</span>
+             <span>Estimated Time:{quote?.estimatedTime}s</span>
+             <span>Src Chain gas Fees :{quote?.srcChainGasFees}</span>
+             <span>Contract Config: {config}</span>
+            </div>
           </Box>
         </div>
       </Box>

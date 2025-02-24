@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import "./styles.scss";
 import Box from "@mui/material/Box";
 import { Chain } from "@/store/Types/chain";

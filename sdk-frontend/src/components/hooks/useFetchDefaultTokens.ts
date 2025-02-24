@@ -1,6 +1,7 @@
 import {useEffect, useState } from "react";
-import {Nori} from "../../../node_modules/test-sdk-eddy"
+import {Nori} from "nori-sdk"
 import useTransferStore from "@/store/tranfer-store";
+import { useShallow } from "zustand/react/shallow";
 
 
 interface Props {
@@ -12,19 +13,26 @@ interface Props {
 export const useFetchDefaultTokens=({chainId,actionType,isSkip}:Props)=>{
     const sdk=new Nori();
     const [loading,setLoading]=useState<boolean>(false);
+    const {
+        payChain,
+        getChain
+    }=useTransferStore(useShallow((state)=>({
+        payChain:state.payChain,
+        getChain:state.getChain
+    })))
     const fetchDefaultTokens=async(chainId:number)=>{
         setLoading(true)
         const result=await sdk.tokens.getSupportedCrossChainTokens({
-            chainId:chainId
+            chainId:actionType==="From" ? payChain : getChain
         })
         setLoading(false)
-        console.log(result.tokens)
         if(actionType==="From"){
             const token=result.tokens[0]
-            useTransferStore.getState().setPayToken(token)
+            const resultToken={}
+            //useTransferStore.getState().setPayToken(token)
         }else{
             const token=result.tokens[0]
-            useTransferStore.getState().setGetToken(token)
+            // useTransferStore.getState().setGetToken(token)
         }
         return result.tokens[0]
     }

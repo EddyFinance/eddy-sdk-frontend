@@ -1,7 +1,7 @@
 "use client"
 import "./styles.scss";
 import { PoolsTable } from "@/components/PoolsTable";
-import { Eddy } from "../../../node_modules/test-sdk-eddy/dist"
+import {Nori} from "nori-sdk"
 import { useEffect, useState } from "react";
 import { Pool } from "@/store/Types/pools";
 
@@ -9,11 +9,10 @@ import { Pool } from "@/store/Types/pools";
 export default function Page() {
     const [pools,setPools]=useState<Pool[]>([]);
     const [loading,setLoading]=useState<boolean>(true);
-    const sdk = new Eddy()
+    const sdk = new Nori()
     useEffect(()=>{
         async function fetchPools(){
             const data = await sdk.pool.getPools({ chainId: 7000 });
-            console.log(data)
             setPools(data.pools);
             setLoading(false)
         }

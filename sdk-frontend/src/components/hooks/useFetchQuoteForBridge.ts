@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import {Nori} from "../../../node_modules/test-sdk-eddy"
+import { Nori } from "../../../../node_modules/nori-sdk"
 import useTransferStore from "@/store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
 import {useAccount} from "wagmi";
@@ -34,17 +34,17 @@ export const useFetchQuoteForBridge = () => {
       
       try {
         setLoading(true)
-        console.log("fetching response")
-        if(!payToken || !getToken || !payChain || !getChain) return;
+        if(!payToken || !getToken || !payChain || !getChain || !Number(tokenInAmount)) return;
        const result=await sdk.bridge.getQuoteForBridge({
         inputTokenAddress:payToken?.address as string,
         outputTokenAddress:getToken?.address as string,
         sourceChainId:payChain,
         destinationChainId:getChain,
         slippage:0.5,
-        amount:(Number(tokenInAmount)*Number(payToken?.decimals)).toString(),
+        amount:(Number(tokenInAmount)*(10**Number(payToken?.decimals))).toString(),
        })
       setQuote(result)
+      useTransferStore.getState().setTokenOutAmount(result.estimatedReceivedAmount)
        setLoading(false)
        console.log(result)
       } catch (error) {
@@ -53,7 +53,7 @@ export const useFetchQuoteForBridge = () => {
     };
 
     fetchQuoteForBridge();
-  }, [payChain, getChain]); 
+  }, [payChain, getChain,payToken,getToken,tokenInAmount]); 
 
   return {
     quote,

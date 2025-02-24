@@ -21,6 +21,9 @@ export const TokenLabel = ({
   actionType,
   chainId
 }:Props) => {
+  if(actionType==="To" && !zrc20Exist){
+    return
+  }
   return (
     <>
         <div className="TokenLabel" onClick={()=>{
