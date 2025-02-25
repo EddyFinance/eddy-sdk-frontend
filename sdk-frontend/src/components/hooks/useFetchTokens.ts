@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import {Nori} from "nori-sdk"
-import useTransferStore from "@/store/tranfer-store";
+const Nori = require("nori-sdk").Nori;
+import useTransferStore from "../../store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
-import { Token } from "@/store/Types/token";
+import { Token } from "../../store/Types/token";
 
 interface Props {
   actionType: string;
@@ -26,17 +26,14 @@ export const useFetchTokens = ({ actionType }: Props) => {
         setTokenLoading(true);
         let result;
         if (payChain !== getChain) {
-          console.log("fetching cross")
           result = await sdk.tokens.getSupportedCrossChainTokens({
             chainId: actionType === "From" ? payChain : getChain,
           });
         } else {
-          console.log("fetching same")
           result = await sdk.tokens.getSupportedSameChainTokens({
             chainId: actionType === "From" ? payChain : getChain,
           });
         }
-
         setTokens(result.tokens);
       } catch (error) {
         console.error("Error fetching tokens:", error);

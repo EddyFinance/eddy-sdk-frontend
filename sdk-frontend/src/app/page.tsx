@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 const DynamicCrossChainWidget = dynamic(
   () =>
-    import("@/components/CrossChainWidget").then((mod) => mod.CrossChainWidget),
+    import("../components/CrossChainWidget").then((mod) => mod.CrossChainWidget),
   {
     ssr: false,
   }

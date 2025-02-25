@@ -1,10 +1,9 @@
 "use client"
 import { useEffect, useState } from "react";
-import { Nori } from "../../../../node_modules/nori-sdk"
-import useTransferStore from "@/store/tranfer-store";
+const Nori = require("nori-sdk").Nori;
+import useTransferStore from "../../store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
-import {useAccount} from "wagmi";
-import { QuoteResponse } from "@/store/Types/token";
+import { QuoteResponse } from "../../store/Types/token";
 interface Props {
   actionType: string;
 }
@@ -31,7 +30,6 @@ export const useFetchQuoteForBridge = () => {
 
   useEffect(() => {
     const fetchQuoteForBridge = async () => {
-      
       try {
         setLoading(true)
         if(!payToken || !getToken || !payChain || !getChain || !Number(tokenInAmount)) return;
@@ -41,12 +39,11 @@ export const useFetchQuoteForBridge = () => {
         sourceChainId:payChain,
         destinationChainId:getChain,
         slippage:0.5,
-        amount:(Number(tokenInAmount)*(10**Number(payToken?.decimals))).toString(),
+        amount:(Number(tokenInAmount)*(10**Number(payToken?.decimal))).toString(),
        })
       setQuote(result)
       useTransferStore.getState().setTokenOutAmount(result.estimatedReceivedAmount)
        setLoading(false)
-       console.log(result)
       } catch (error) {
         console.error("Error fetching tokens:", error);
       }

@@ -5,18 +5,17 @@ import dynamic from "next/dynamic";
 
 import Box from "@mui/material/Box";
 import { motion } from "framer-motion";
-import useTransferStore from "@/store/tranfer-store";
-import { Token } from "@/store/Types/token";
+import useTransferStore from "../../..//store/tranfer-store";
+import { Token } from "../../..//store/Types/token";
 import { useSearchParams } from "next/navigation";
-import { closeSnackbar } from "notistack";
-import { CustomTextLoader } from "@/common/CustomTextLoader";
-import useCustomModal from "@/common/useCustomModal";
-import { Nori } from "../../../../node_modules/nori-sdk";
-import { useFetchDefaultTokens } from "@/components/hooks/useFetchDefaultTokens";
-import { CustomSpinner } from "@/common/CustomSpinner";
+import { CustomTextLoader } from "../../..//common/CustomTextLoader";
+import useCustomModal from "../../..//common/useCustomModal";
+const Nori = require("nori-sdk").Nori;
+import { useFetchDefaultTokens } from "../../..../../../components/hooks/useFetchDefaultTokens";
+import { CustomSpinner } from "../../../common/CustomSpinner";
 const DynamicTokenModal = dynamic(
   () =>
-    import("@/components/AppModals/TokenModal").then((mod) => mod.TokenModal),
+    import("../../../components/AppModals/TokenModal").then((mod) => mod.TokenModal),
   {
     ssr: false,
   }

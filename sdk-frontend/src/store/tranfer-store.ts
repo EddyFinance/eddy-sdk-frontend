@@ -43,7 +43,6 @@ const useTransferStore = create<TransferStore>((set, get) => ({
         set((state) => ({ getChain: chainId }));
       },
       setPayToken: (token: Token) => {
-        console.log("setting pay token",token)
         set((state) => ({ payToken: token }));
       },
       setGetToken: (token: Token) => {

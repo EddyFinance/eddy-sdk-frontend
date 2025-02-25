@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { FaSort } from "react-icons/fa6";
 import useMediaQuery  from "@mui/material/useMediaQuery";
-import { Pool } from "@/store/Types/pools";
-import { CustomSpinner } from "@/common/CustomSpinner";
+import { Pool } from "../../store/Types/pools";
+import { CustomSpinner } from "../../common/CustomSpinner";
 interface Props {
   data: Pool[];
   loading: boolean;

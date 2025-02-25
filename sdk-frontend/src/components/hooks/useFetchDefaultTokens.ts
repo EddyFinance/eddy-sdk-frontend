@@ -1,6 +1,6 @@
 import {useEffect, useState } from "react";
-import {Nori} from "nori-sdk"
-import useTransferStore from "@/store/tranfer-store";
+const Nori = require("nori-sdk").Nori;
+import useTransferStore from "../../store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
 
 
@@ -29,10 +29,10 @@ export const useFetchDefaultTokens=({chainId,actionType,isSkip}:Props)=>{
         if(actionType==="From"){
             const token=result.tokens[0]
             const resultToken={}
-            //useTransferStore.getState().setPayToken(token)
+            useTransferStore.getState().setPayToken(token)
         }else{
             const token=result.tokens[0]
-            // useTransferStore.getState().setGetToken(token)
+            useTransferStore.getState().setGetToken(token)
         }
         return result.tokens[0]
     }

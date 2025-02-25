@@ -1,6 +1,6 @@
 export interface Token {
     name:string;
-    decimals:number;
+    decimal:number;
     address:string;
     chainId:number
     zrc20Exist:boolean;
@@ -18,3 +18,15 @@ export interface Token {
       protocolFees: number;
       estimatedTime: number;
   }
+
+  export interface ContractConfig {
+    address?: string;
+    abi?: Array<any>;
+    args?: Array<any>;
+    functionName?: string;
+    to?: string;
+    value?: string | number | undefined;
+    data?: string;
+    message?:string;
+  }
+  

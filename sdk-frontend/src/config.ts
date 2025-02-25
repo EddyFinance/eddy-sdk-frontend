@@ -32,9 +32,7 @@ export const config = createConfig({
     [mainnet.id]: http(),
     [bsc.id]: http(),
     [polygon.id]: http(),
-    [zetachain.id]: http(
-      "https://zetachain-mainnet.g.alchemy.com/v2/swQALCkRQkrbnQV48o9SrPOdLp9H3Ijs"
-    ),
+    [zetachain.id]: http(),
     [base.id]: http(),
   },
 });

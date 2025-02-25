@@ -4,17 +4,17 @@ import "./styles.scss";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Grow from "@mui/material/Grow";
-import {Nori} from "nori-sdk"
-import { ModalHeading } from "@/common/ModalHeading";
+const Nori = require("nori-sdk").Nori;
+import { ModalHeading } from "../../../common/ModalHeading";
 import { ChainLabel } from "./ChainLabel";
-import { CustomSpinner } from "@/common/CustomSpinner";
+import { CustomSpinner } from "../../../common/CustomSpinner";
 import { TokenLabel } from "./TokenLabel";
 import Slide from "@mui/material/Slide"
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Token } from "@/store/Types/token";
-import { Chain } from "@/store/Types/chain";
-import useTransferStore from "@/store/tranfer-store";
-import { useFetchTokens } from "@/components/hooks/useFetchTokens";
+import { Token } from "../../../store/Types/token";
+import { Chain } from "../../../store/Types/chain";
+import useTransferStore from "../../../store/tranfer-store";
+import { useFetchTokens } from "../../../components/hooks/useFetchTokens";
 import { useShallow } from "zustand/react/shallow";
 interface Props {
   open: boolean;
@@ -70,11 +70,12 @@ export const TokenModal = ({
             <TokenLabel
               key={index}
               name={item.name}
-              decimals={item.decimals}
+              decimal={item.decimal}
               address={item.address}
               zrc20Exist={item.zrc20Exist}
               chainId={item.chainId}
               actionType={actionType}
+              handleClick={handleClose}
             />
           ))}
         </>

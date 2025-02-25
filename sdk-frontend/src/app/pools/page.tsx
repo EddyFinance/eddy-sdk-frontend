@@ -1,10 +1,9 @@
 "use client"
 import "./styles.scss";
-import { PoolsTable } from "@/components/PoolsTable";
-import {Nori} from "nori-sdk"
+import { PoolsTable } from "../../components/PoolsTable";
+const Nori = require("nori-sdk").Nori;
 import { useEffect, useState } from "react";
-import { Pool } from "@/store/Types/pools";
-
+import { Pool } from "../../store/Types/pools";
 
 export default function Page() {
     const [pools,setPools]=useState<Pool[]>([]);

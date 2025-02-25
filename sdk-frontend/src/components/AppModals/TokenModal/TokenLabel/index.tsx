@@ -2,24 +2,26 @@ import React, { act, useState } from "react";
 import "./styles.scss";
 import Box from "@mui/material/Box";
 
-import { Token } from "@/store/Types/token";
-import useTransferStore from "@/store/tranfer-store";
+import { Token } from "../../../../store/Types/token";
+import useTransferStore from "../../../../store/tranfer-store";
 
 interface Props{
   name:string;
-  decimals:number;
+  decimal:number;
   address:string;
   chainId:number
   zrc20Exist:boolean;
   actionType:string;
+  handleClick:()=>void;
 }
 export const TokenLabel = ({
   name,
-  decimals,
+  decimal,
   address,
   zrc20Exist,
   actionType,
-  chainId
+  chainId,
+  handleClick
 }:Props) => {
   if(actionType==="To" && !zrc20Exist){
     return
@@ -30,7 +32,7 @@ export const TokenLabel = ({
           if(actionType==="From"){
             useTransferStore.getState().setPayToken({
               name,
-              decimals,
+              decimal,
               address,
               zrc20Exist,
               chainId
@@ -38,13 +40,13 @@ export const TokenLabel = ({
           }else{
             useTransferStore.getState().setGetToken({
               name,
-              decimals,
+              decimal,
               address,
               zrc20Exist,
               chainId
             })
           }
-         
+         handleClick()
         }}>
           <Box className="TokenDetails">
             <Box className="TokenNameContainer">

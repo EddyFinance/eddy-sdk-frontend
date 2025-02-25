@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { WagmiProvider } from "wagmi";
-import { config } from "@/config";
+import { config } from "../config";
 const geistMono = Roboto_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],

@@ -4,7 +4,7 @@ import "./styles.scss";
 import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import  useMediaQuery  from "@mui/material/useMediaQuery";
-import useTransferStore from "@/store/tranfer-store";
+import useTransferStore from "../../store/tranfer-store";
 import { useShallow } from "zustand/react/shallow";
 import { useFetchContractConfig } from "../hooks/useFetchContractConfig";
 import { useFetchQuoteForBridge } from "../hooks/useFetchQuoteForBridge";
@@ -105,15 +105,15 @@ export const CrossChainWidget = () => {
               loadingState={false}
               errorState={undefined}
               handleMainButtonClick={()=>{
-                console.log("i got clicked")
+               
               }}
             />
             <div className="QuoteBox">
              <span>Dest Chain Gas Fees: {quote?.destChainGasFees}</span>
-             <span>Estimatated Received Amount : {((Number(quote?.estimatedReceivedAmount))/(10**Number(getToken?.decimals))) || 0.00}</span>
+             <span>Estimatated Received Amount : {((Number(quote?.estimatedReceivedAmount))/(10**Number(getToken?.decimal))) || 0.00}</span>
              <span>Estimated Time:{quote?.estimatedTime}s</span>
              <span>Src Chain gas Fees :{quote?.srcChainGasFees}</span>
-             <span>Contract Config: {config}</span>
+             <span>Contract Config: {config?.functionName || ""}</span>
             </div>
           </Box>
         </div>
